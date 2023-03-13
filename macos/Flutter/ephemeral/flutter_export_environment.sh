@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=/home/oriol/snap/flutter/common/flutter"
-export "FLUTTER_APPLICATION_PATH=/home/oriol/Documents/hub/Fitness-Front"
+export "FLUTTER_ROOT=/home/gonzalo/snap/flutter/common/flutter"
+export "FLUTTER_APPLICATION_PATH=/home/gonzalo/test/JustFriendsFlutterFront/just_friends"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_BUILD_DIR=build"
 export "FLUTTER_BUILD_NAME=1.0.0"

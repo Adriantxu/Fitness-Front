@@ -116,6 +116,8 @@ class _LoginDemoState extends State<LoginDemo> {
                 color: Colors.blue,
                 borderRadius: BorderRadius.circular(20),
               ),
+            ),
+          ),
           //     child: TextButton(
           //       onPressed: () {
           //         print(emailController.text);
