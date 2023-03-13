@@ -33,7 +33,7 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chat'),
+        title: const Text('Chat'),
       ),
       body: Column(
         children: [
@@ -63,22 +63,22 @@ class _ChatPageState extends State<ChatPage> {
               },
             ),
           ),
-          Divider(height: 1),
+          const Divider(height: 1),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Row(
               children: [
                 Expanded(
                   child: TextField(
                     controller: _textEditingController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Type a message...',
                       border: InputBorder.none,
                     ),
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.send),
+                  icon: const Icon(Icons.send),
                   onPressed: _sendMessage,
                 ),
               ],

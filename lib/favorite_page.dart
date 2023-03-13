@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:just_friends/main.dart';
 
-
-class favoritePage extends StatelessWidget {
+class FavoritePage extends StatelessWidget {
   final List<String> favorite;
 
-  favoritePage({required this.favorite});
+  const FavoritePage({required this.favorite});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Favorite'),
+        title: const Text('Favorite'),
       ),
       body: ListView.builder(
         itemCount: favorite.length,

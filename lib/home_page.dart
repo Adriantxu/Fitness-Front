@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'searchbar.dart';
+import 'search_bar.dart';
 import 'settings.dart';
-import 'chatPage.dart';
+import 'chat_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -84,20 +84,20 @@ class _HomePageState extends State<HomePage> {
         child: Row(
           children: [
             PopupMenuButton(
-              icon: Icon(Icons.menu),
+              icon: const Icon(Icons.menu),
               itemBuilder: (BuildContext context) {
                 return [
-                  PopupMenuItem(
-                    child: Text('FAQ'),
+                  const PopupMenuItem(
                     value: 1,
+                    child: Text('FAQ'),
                   ),
-                  PopupMenuItem(
-                    child: Text('Settings'),
+                  const PopupMenuItem(
                     value: 2,
+                    child: Text('Settings'),
                   ),
-                  PopupMenuItem(
-                    child: Text('Chat'),
+                  const PopupMenuItem(
                     value: 3,
+                    child: Text('Chat'),
                   ),
                 ];
               },
@@ -122,7 +122,7 @@ class _HomePageState extends State<HomePage> {
               },
             ),
             IconButton(
-              icon: Icon(Icons.shopping_cart),
+              icon: const Icon(Icons.shopping_cart),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -132,9 +132,9 @@ class _HomePageState extends State<HomePage> {
                 );
               },
             ),
-            Spacer(),
+            const Spacer(),
             IconButton(
-              icon: Icon(Icons.favorite),
+              icon: const Icon(Icons.favorite),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -145,7 +145,7 @@ class _HomePageState extends State<HomePage> {
               },
             ),
             IconButton(
-              icon: Icon(Icons.search),
+              icon: const Icon(Icons.search),
               onPressed: () {
                 showSearch(
                   context: context,
@@ -158,35 +158,35 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       appBar: AppBar(
-        title: Text('Fitness App'),
+        title: const Text('Fitness App'),
       ),
       body: ListView.builder(
         itemCount: products.length,
         itemBuilder: (context, index) {
           final product = products[index];
           return ListTile(
-            leading: Icon(Icons.shopping_cart),
+            leading: const Icon(Icons.shopping_cart),
             title: Text(product),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 IconButton(
                   icon: isFavorite(product)
-                      ? Icon(Icons.favorite)
-                      : Icon(Icons.favorite_border),
+                      ? const Icon(Icons.favorite)
+                      : const Icon(Icons.favorite_border),
                   onPressed: () {
                     toggleFavorite(product);
                   },
                 ),
                 isInCart(product)
                     ? IconButton(
-                        icon: Icon(Icons.remove),
+                        icon: const Icon(Icons.remove),
                         onPressed: () {
                           removeFromCart(product);
                         },
                       )
                     : IconButton(
-                        icon: Icon(Icons.add),
+                        icon: const Icon(Icons.add),
                         onPressed: () {
                           addToCart(product);
                         },
@@ -209,36 +209,12 @@ class CartPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cart'),
+        title: const Text('Cart'),
       ),
       body: ListView.builder(
         itemCount: cart.length,
         itemBuilder: (context, index) {
           final product = cart[index];
-          return ListTile(
-            title: Text(product),
-          );
-        },
-      ),
-    );
-  }
-}
-
-class favoritePage extends StatelessWidget {
-  final List<String> favorite;
-
-  favoritePage({required this.favorite});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Favorite'),
-      ),
-      body: ListView.builder(
-        itemCount: favorite.length,
-        itemBuilder: (context, index) {
-          final product = favorite[index];
           return ListTile(
             title: Text(product),
           );
