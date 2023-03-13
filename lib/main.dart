@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'HomePage.dart';
-import 'registerPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -118,44 +116,44 @@ class _LoginDemoState extends State<LoginDemo> {
                 color: Colors.blue,
                 borderRadius: BorderRadius.circular(20),
               ),
-              child: TextButton(
-                onPressed: () {
-                  print(emailController.text);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => HomePage()),
-                  );
-                },
-                child: const Text(
-                  'Login',
-                  style: TextStyle(color: Colors.white, fontSize: 17),
-                ),
-              ),
-            ),
-          ),
-          TextButton(
-            onPressed: () {
-              // TODO: button press logic
-            },
-            style: TextButton.styleFrom(
-              fixedSize: const Size(200, 70),
-            ),
-            child: const Text(
-              'Forgot Password',
-              style: TextStyle(color: Colors.blue),
-            ),
-          ),
-          const SizedBox(height: 20),
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const LoginPage()),
-              );
-            },
-            child: const Text('New User? Create Account',
-                style: TextStyle(color: Colors.white)),
-          ),
+          //     child: TextButton(
+          //       onPressed: () {
+          //         print(emailController.text);
+          //         Navigator.push(
+          //           context,
+          //           MaterialPageRoute(builder: (_) => HomePage()),
+          //         );
+          //       },
+          //       child: const Text(
+          //         'Login',
+          //         style: TextStyle(color: Colors.white, fontSize: 17),
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          // TextButton(
+          //   onPressed: () {
+          //     // TODO: button press logic
+          //   },
+          //   style: TextButton.styleFrom(
+          //     fixedSize: const Size(200, 70),
+          //   ),
+          //   child: const Text(
+          //     'Forgot Password',
+          //     style: TextStyle(color: Colors.blue),
+          //   ),
+          // ),
+          // const SizedBox(height: 20),
+          // GestureDetector(
+          //   onTap: () {
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(builder: (_) => const LoginPage()),
+          //     );
+          //   },
+          //   child: const Text('New User? Create Account',
+          //       style: TextStyle(color: Colors.white)),
+          // ),
         ],
       ),
     );
