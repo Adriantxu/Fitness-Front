@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:just_friends/main.dart';
 import 'searchbar.dart';
 import 'settings.dart';
 import 'chatPage.dart';
@@ -10,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Just Friends',
+      title: 'Fitness App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -159,7 +158,7 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       appBar: AppBar(
-        title: Text('Just Friends'),
+        title: Text('Fitness App'),
       ),
       body: ListView.builder(
         itemCount: products.length,
