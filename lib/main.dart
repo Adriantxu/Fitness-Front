@@ -118,19 +118,19 @@ class _LoginDemoState extends State<LoginDemo> {
                 color: Colors.blue,
                 borderRadius: BorderRadius.circular(20),
               ),
-            ),
-          ),
-          TextButton(
-            onPressed: () {
-              print(emailController.text);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => HomePage()),
-              );
-            },
-            child: const Text(
-              'Login',
-              style: TextStyle(color: Colors.white, fontSize: 17),
+              child: TextButton(
+                onPressed: () {
+                  print(emailController.text);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => HomePage()),
+                  );
+                },
+                child: const Text(
+                  'Login',
+                  style: TextStyle(color: Colors.white, fontSize: 17),
+                ),
+              ),
             ),
           ),
           TextButton(
