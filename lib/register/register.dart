@@ -5,40 +5,44 @@ class Register extends StatelessWidget {
 
   Widget setTextField(bool obscureText, String labelText, String hintText)
   {
-    return TextField(
-      obscureText: obscureText,
-      decoration: InputDecoration(
-        enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.white),
-        ),
-        hintText: hintText,
-        labelText: labelText,
-        hintStyle: const TextStyle(
-          color: Colors.white,
-        ),
-        labelStyle: const TextStyle(
-          color: Colors.white,
+    return Container(
+      margin: const EdgeInsets.all(10),
+      child: TextField(
+        obscureText: obscureText,
+        decoration: InputDecoration(
+          enabledBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.white),
+          ),
+          hintText: hintText,
+          labelText: labelText,
+          hintStyle: const TextStyle(
+            color: Colors.white,
+          ),
+          labelStyle: const TextStyle(
+            color: Colors.white,
+          ),
         ),
       ),
     );
   }
 
-  ClipRRect setRoundRectangle(String text, Function f)
+  Widget setRoundRectangle(String text, Function f)
   {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(10),
-      child: Container(
-        height: 40,
-        width: 125,
+    return Container(
+      decoration: BoxDecoration(
         color: Colors.blueAccent[400],
-        child: TextButton(
-          onPressed: () {
-            f();
-          },
-          child: Text(
-              text,
-            style: const TextStyle(color: Colors.white),
-          ),
+        borderRadius: BorderRadius.circular(15),
+      ),
+      margin: const EdgeInsets.all(10),
+      height: 35,
+      width: text.length * 10,
+      child: TextButton(
+        onPressed: () {
+          f();
+        },
+        child: Text(
+            text,
+          style: const TextStyle(color: Colors.white),
         ),
       ),
     );
@@ -51,53 +55,29 @@ class Register extends StatelessWidget {
       home: Scaffold(
         backgroundColor: Colors.grey[600],
         body: SafeArea(
-          minimum: const EdgeInsets.fromLTRB(20, 5, 20, 10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Expanded(
-                child: Container(
-                  color: Colors.grey[600],
-                  child: Center(
-                    child: Image.asset('assets/logo_gym1.png'),
+          minimum: const EdgeInsets.all(25),
+          child: LayoutBuilder(
+            builder: (context, constraints) => SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                child: IntrinsicHeight(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.zero,
+                        child: Image.asset('assets/logo_gym1.png'),
+                      ),
+                      setTextField(false, 'Email', 'something@example.com'),
+                      setTextField(true, 'Password', ''),
+                      setTextField(true, 'Confirm password', ''),
+                      setRoundRectangle('Register', () {}),
+                      setRoundRectangle('Already a user', () {}),
+                    ],
                   ),
                 ),
               ),
-              Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
-                    child: Expanded(
-                      child: setTextField(false, 'email', 'something@example.com'),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
-                    child: Expanded(
-                      child: setTextField(true, 'password', ''),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
-                    child: Expanded(
-                      child: setTextField(true, 'confirm password', ''),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
-                    child: Expanded(
-                      child: setRoundRectangle('Register', () {}),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
-                    child: Expanded(
-                      child: setRoundRectangle('Already a user', () {}),
-                    ),
-                  ),
-                ],
-              ),
-            ],
+            ),
           ),
         )
       ),
