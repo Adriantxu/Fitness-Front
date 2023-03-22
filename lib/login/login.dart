@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import '../register/register.dart';
+import '../api_handler.dart';
 
 class Login extends StatelessWidget {
-  const Login({super.key});
+  Login({super.key});
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   Widget setTextRedirection(String text, Function func, {Key? key}) {
     return Container(
@@ -21,10 +25,12 @@ class Login extends StatelessWidget {
     );
   }
 
-  Widget setTextField(bool obscureText, String labelText, String hintText) {
+  Widget setTextField(bool obscureText, String labelText, String hintText,
+      TextEditingController getInfo) {
     return Container(
       margin: const EdgeInsets.all(10),
       child: TextField(
+        controller: getInfo,
         obscureText: obscureText,
         decoration: InputDecoration(
           enabledBorder: const OutlineInputBorder(
@@ -59,8 +65,16 @@ class Login extends StatelessWidget {
       child: Column(
         children: [
           TextButton(
-            onPressed: () {
-              f();
+            onPressed: () async {
+              try {
+                var response = await postLogIn(emailController.text.toString(),
+                    passwordController.text.toString());
+                print(response);
+                // Handle successful login
+              } catch (e) {
+                print(e);
+                // Handle error
+              }
             },
             child: Text(
               text,
@@ -94,8 +108,9 @@ class Login extends StatelessWidget {
                           margin: EdgeInsets.zero,
                           child: Image.asset('assets/logo_gym1.png'),
                         ),
-                        setTextField(false, 'Email', 'something@example.com'),
-                        setTextField(true, 'Password', ''),
+                        setTextField(false, 'Email', 'something@example.com',
+                            emailController),
+                        setTextField(true, 'Password', '', passwordController),
                         setRoundRectangle(
                           'Login',
                           () {},
