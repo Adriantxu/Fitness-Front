@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../login/login.dart';
+import '../register/register.dart';
 
-class Register extends StatelessWidget {
-  const Register({super.key});
+class Login extends StatelessWidget {
+  const Login({super.key});
 
   Widget setTextRedirection(String text, Function func, {Key? key}) {
     return Container(
@@ -43,23 +43,33 @@ class Register extends StatelessWidget {
     );
   }
 
+  bool functionExists(String functionName) {
+    return Function.apply((functionName) => null, [functionName]) is Function;
+  }
+
   Widget setRoundRectangle(String text, Function f) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.blueAccent[400],
         borderRadius: BorderRadius.circular(15),
       ),
-      margin: const EdgeInsets.all(10),
       height: 35,
+      margin: const EdgeInsets.all(10),
       width: 200,
-      child: TextButton(
-        onPressed: () {
-          f();
-        },
-        child: Text(
-          text,
-          style: const TextStyle(color: Colors.white),
-        ),
+      child: Column(
+        children: [
+          TextButton(
+            onPressed: () {
+              f();
+            },
+            child: Text(
+              text,
+              style: const TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -84,17 +94,18 @@ class Register extends StatelessWidget {
                           margin: EdgeInsets.zero,
                           child: Image.asset('assets/logo_gym1.png'),
                         ),
-                        setTextField(false, 'Name', 'Diana Delgado'),
                         setTextField(false, 'Email', 'something@example.com'),
                         setTextField(true, 'Password', ''),
-                        setTextField(true, 'Confirm password', ''),
-                        setRoundRectangle('Register', () {}),
+                        setRoundRectangle(
+                          'Login',
+                          () {},
+                        ),
                         setTextRedirection(
-                          "Already a user? Sign in now",
+                          "Not a user? Sign up now",
                           () => Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => Login(),
+                              builder: (context) => Register(),
                             ),
                           ),
                         ),
