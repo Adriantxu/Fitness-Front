@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import '../register/register.dart';
 import '../api_handler.dart';
@@ -8,7 +9,7 @@ class Login extends StatelessWidget {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  Widget setTextRedirection(String text, Function func, {Key? key}) {
+  Widget setTextRedirection(String text, Function func) {
     return Container(
       key: key,
       child: TextButton(
@@ -49,34 +50,34 @@ class Login extends StatelessWidget {
     );
   }
 
-  bool functionExists(String functionName) {
-    return Function.apply((functionName) => null, [functionName]) is Function;
+  Future<void> loginUser() async {
+    try {
+      var response = await postLogIn(
+          emailController.toString(), passwordController.toString());
+      print(response);
+    } catch (e) {
+      print(e);
+    }
   }
 
-  Widget setRoundRectangle(String text, Function f) {
+  Widget setRoundRectangle(String text, Function f1) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.blueAccent[400],
         borderRadius: BorderRadius.circular(15),
       ),
-      height: 35,
       margin: const EdgeInsets.all(10),
+      height: 35,
       width: 200,
-      child: Column(
-        children: [
-          TextButton(
-            onPressed: () async {
-                String response = await postLogIn(emailController.text.toString(),
-                    passwordController.text.toString());
-            },
-            child: Text(
-              text,
-              style: const TextStyle(
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ],
+      child: TextButton(
+        onPressed: () {
+          loginUser();
+          f1();
+        },
+        child: Text(
+          text,
+          style: const TextStyle(color: Colors.white),
+        ),
       ),
     );
   }
@@ -105,15 +106,19 @@ class Login extends StatelessWidget {
                             emailController),
                         setTextField(true, 'Password', '', passwordController),
                         setRoundRectangle(
-                          'Login',
-                          () {},
-                        ),
+                            'Login',
+                            () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const Register(),
+                                  ),
+                                )),
                         setTextRedirection(
                           "Not a user? Sign up now",
                           () => Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => Register(),
+                              builder: (context) => const Register(),
                             ),
                           ),
                         ),
