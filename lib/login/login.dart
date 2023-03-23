@@ -66,15 +66,8 @@ class Login extends StatelessWidget {
         children: [
           TextButton(
             onPressed: () async {
-              try {
-                var response = await postLogIn(emailController.text.toString(),
+                String response = await postLogIn(emailController.text.toString(),
                     passwordController.text.toString());
-                print(response);
-                // Handle successful login
-              } catch (e) {
-                print(e);
-                // Handle error
-              }
             },
             child: Text(
               text,
