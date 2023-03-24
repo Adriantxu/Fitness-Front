@@ -1,8 +1,21 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import '../login/login.dart';
+import '../api_handler.dart';
 
-class Register extends StatelessWidget {
+class Register extends StatefulWidget {
   const Register({super.key});
+
+  @override
+  State<Register> createState() => _RegisterState();
+}
+
+class _RegisterState extends State<Register> {
+
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmController = TextEditingController();
 
   Widget setTextRedirection(String text, Function func, {Key? key}) {
     return Container(
@@ -21,16 +34,16 @@ class Register extends StatelessWidget {
     );
   }
 
-  Widget setTextField(bool obscureText, String labelText, String hintText) {
+  Widget setTextField(bool obscureText, String labelText, TextEditingController controller) {
     return Container(
       margin: const EdgeInsets.all(10),
       child: TextField(
+        controller: controller,
         obscureText: obscureText,
         decoration: InputDecoration(
           enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.white),
           ),
-          hintText: hintText,
           labelText: labelText,
           hintStyle: const TextStyle(
             color: Colors.white,
@@ -41,6 +54,17 @@ class Register extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> signUpUser() async
+  {
+    String response;
+    if (passwordController.text != confirmController.text) {
+      throw Exception('Passwords are different');
+    } else {
+      response = await postSignUp(nameController.text, emailController.text, passwordController.text);
+      print('[ERROR]: ${response.toString()}');
+    }
   }
 
   Widget setRoundRectangle(String text, Function f) {
@@ -54,6 +78,7 @@ class Register extends StatelessWidget {
       width: 200,
       child: TextButton(
         onPressed: () {
+          signUpUser();
           f();
         },
         child: Text(
@@ -84,10 +109,10 @@ class Register extends StatelessWidget {
                           margin: EdgeInsets.zero,
                           child: Image.asset('assets/logo_gym1.png'),
                         ),
-                        setTextField(false, 'Name', 'Diana Delgado'),
-                        setTextField(false, 'Email', 'something@example.com'),
-                        setTextField(true, 'Password', ''),
-                        setTextField(true, 'Confirm password', ''),
+                        setTextField(false, 'Name', nameController),
+                        setTextField(false, 'Email', emailController),
+                        setTextField(true, 'Password', passwordController),
+                        setTextField(true, 'Confirm password', confirmController),
                         setRoundRectangle('Register', () {}),
                         setTextRedirection(
                           "Already a user? Sign in now",
