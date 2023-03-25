@@ -29,50 +29,69 @@ class Landing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[900],
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Expanded(
-                child: Container(
-                  margin: EdgeInsets.zero,
-                  child: Image.asset('assets/logo_gym1.png'),
-                ),
-              ),
-              const Text(
-                'Welcome to Fit Me',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const Text(
-                'Your favourite gym app!',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              setRoundRectangle('Login', () {
-                return Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Login()),
-                );
-              }),
-              const SizedBox(height: 10),
-              setRoundRectangle('Register', () {
-                return Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const Register()),
-                );
-              }),
-            ],
-          ),
-        ),
-      ),
-    );
+        backgroundColor: Colors.grey[900],
+        body: SafeArea(
+            minimum: const EdgeInsets.all(25),
+            child: LayoutBuilder(
+                builder: (context, constraints) => SingleChildScrollView(
+                      child: ConstrainedBox(
+                        constraints:
+                            BoxConstraints(minHeight: constraints.maxHeight),
+                        child: IntrinsicHeight(
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                Container(
+                                  margin: EdgeInsets.zero,
+                                  child: Image.asset('assets/logo_gym1.png'),
+                                ),
+                                Column(
+                                  children: [
+                                    const Text(
+                                      'Welcome to Fit Me',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    const Text(
+                                      'Your favourite gym app!',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    setRoundRectangle('Login', () {
+                                      return Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => Login()),
+                                      );
+                                    }),
+                                    const SizedBox(height: 10),
+                                    setRoundRectangle('Register', () {
+                                      return Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const Register()),
+                                      );
+                                    }),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ))));
   }
 }
