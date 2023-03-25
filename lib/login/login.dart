@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import '../register/register.dart';
-import '../api_handler.dart';
+import '../auth.service.dart';
 
 class Login extends StatelessWidget {
   Login({super.key});
@@ -87,7 +87,7 @@ class Login extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-          backgroundColor: Colors.grey[600],
+          backgroundColor: Colors.grey[900],
           body: SafeArea(
             minimum: const EdgeInsets.all(25),
             child: LayoutBuilder(
@@ -105,14 +105,7 @@ class Login extends StatelessWidget {
                         setTextField(false, 'Email', 'something@example.com',
                             emailController),
                         setTextField(true, 'Password', '', passwordController),
-                        setRoundRectangle(
-                            'Login',
-                            () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const Register(),
-                                  ),
-                                )),
+                        setRoundRectangle('Login', () {}),
                         setTextRedirection(
                           "Not a user? Sign up now",
                           () => Navigator.push(

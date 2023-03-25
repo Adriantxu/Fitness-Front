@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import '../login/login.dart';
-import '../api_handler.dart';
+import '../auth.service.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -94,7 +94,7 @@ class _RegisterState extends State<Register> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-          backgroundColor: Colors.grey[600],
+          backgroundColor: Colors.grey[900],
           body: SafeArea(
             minimum: const EdgeInsets.all(25),
             child: LayoutBuilder(

@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:just_friends/login/login.dart';
-import 'register/register.dart';
+import 'landing/langind_page.dart';
+import 'exercises/exercise.dart';
+import 'exercises/new_set.dart';
+
 
 void main() {
-  runApp(Login());
+  runApp(
+    const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Landing()
+    )
+  );
 }
