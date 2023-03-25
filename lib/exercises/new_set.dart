@@ -67,7 +67,7 @@ class NewSetState extends State<NewSet> {
     if (response.statusCode! < 300) {
       f();
     }
-    showError('Add set failed', response.data['message'])
+    showError('Add set failed', response.data['message']);
     print(response.toString());
   }
 
@@ -82,8 +82,7 @@ class NewSetState extends State<NewSet> {
       width: 200,
       child: TextButton(
         onPressed: () async {
-          await sendSet();
-          f();
+          await sendSet(f);
         },
         child: Text(
           text,
