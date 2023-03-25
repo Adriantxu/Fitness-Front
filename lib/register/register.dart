@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../login/login.dart';
 import '../auth/auth.service.dart';
 import '../auth/auth.dart';
+import 'package:dio/dio.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -16,6 +17,24 @@ class _RegisterState extends State<Register> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmController = TextEditingController();
+
+  dynamic showError(String error, String statusMessage)
+  {
+    // ignore: use_build_context_synchronously
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(error),
+        content: Text(statusMessage),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('OK'),
+          ),
+        ],
+      )
+    );
+  }
 
   Widget setTextRedirection(String text, Function func, {Key? key}) {
     return Container(
@@ -59,15 +78,20 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  Future<void> signUpUser() async
+  Future<void> signUpUser(Function f) async
   {
-    Map<String, dynamic> response;
+    Response<dynamic> response;
 
     if (passwordController.text != confirmController.text) {
-      throw Exception('Passwords are different');
+      showError('Incorrect values', 'Passwords are different');
+      return;
     }
     response = await postSignUp(nameController.text, emailController.text, passwordController.text);
-    token = response['accessToken'];
+    if (response.statusCode! < 300) {
+      token = response.data['accessToken'];
+      f();
+    }
+    showError('Sign up failed', response.data['message']);
     print(response.toString());
   }
 
@@ -82,8 +106,7 @@ class _RegisterState extends State<Register> {
       width: 200,
       child: TextButton(
         onPressed: () async {
-          await signUpUser();
-          f();
+          await signUpUser(f);
         },
         child: Text(
           text,

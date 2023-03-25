@@ -2,16 +2,40 @@ import 'package:flutter/material.dart';
 import '../register/register.dart';
 import '../auth/auth.service.dart';
 import '../auth/auth.dart';
+import 'package:dio/dio.dart';
 
-class Login extends StatelessWidget {
-  Login({super.key});
+class Login extends StatefulWidget {
+  const Login({super.key});
 
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
   TextEditingController emailController = TextEditingController();
+
   TextEditingController passwordController = TextEditingController();
+
+  dynamic showError(String error, String statusMessage)
+  {
+    // ignore: use_build_context_synchronously
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(error),
+        content: Text(statusMessage),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('OK'),
+          ),
+        ],
+      )
+    );
+  }
 
   Widget setTextRedirection(String text, Function func) {
     return Container(
-      key: key,
       child: TextButton(
         onPressed: () {
           func();
@@ -51,9 +75,15 @@ class Login extends StatelessWidget {
     );
   }
 
-  Future<void> logInUser() async {
-    Map<String, dynamic> response = await postLogIn(emailController.text, passwordController.text);
-    token = response['accessToken'];
+  Future<void> logInUser(Function f) async {
+    Response<dynamic> response = await postLogIn(emailController.text, passwordController.text);
+
+    if (response.statusCode! < 300) {
+      token = response.data['accessToken'];
+      f();
+    }
+    showError('Log in failed', response.data['message']);
+    print(response.toString());
   }
 
   Widget setRoundRectangle(String text, Function f) {
@@ -67,8 +97,7 @@ class Login extends StatelessWidget {
       width: 200,
       child: TextButton(
         onPressed: () async {
-          await logInUser();
-          f();
+          await logInUser(f);
         },
         child: Text(
           text,
@@ -83,40 +112,41 @@ class Login extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-          backgroundColor: Colors.grey[900],
-          body: SafeArea(
-            minimum: const EdgeInsets.all(25),
-            child: LayoutBuilder(
-              builder: (context, constraints) => SingleChildScrollView(
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                  child: IntrinsicHeight(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.zero,
-                          child: Image.asset('assets/logo_gym1.png'),
-                        ),
-                        setTextField(false, 'Email', emailController),
-                        setTextField(true, 'Password', passwordController),
-                        setRoundRectangle('Login', () {}),
-                        setTextRedirection(
-                          "Not a user? Sign up now",
-                          () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const Register(),
-                            ),
+        backgroundColor: Colors.grey[900],
+        body: SafeArea(
+          minimum: const EdgeInsets.all(25),
+          child: LayoutBuilder(
+            builder: (context, constraints) => SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                child: IntrinsicHeight(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.zero,
+                        child: Image.asset('assets/logo_gym1.png'),
+                      ),
+                      setTextField(false, 'Email', emailController),
+                      setTextField(true, 'Password', passwordController),
+                      setRoundRectangle('Login', () {}),
+                      setTextRedirection(
+                        "Not a user? Sign up now",
+                        () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Register(),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
             ),
-          )),
+          ),
+        )
+      ),
     );
   }
 }

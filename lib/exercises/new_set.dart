@@ -1,23 +1,43 @@
 import 'package:flutter/material.dart';
 import 'exercise.dart';
 import 'set.dart';
+import 'package:dio/dio.dart';
 
 class NewSet extends StatefulWidget {
   final String exerciseId;
-  const NewSet({super.key, required this.exerciseId});
+  final String workoutId;
+  const NewSet({super.key, required this.workoutId, required this.exerciseId});
 
   @override
   // ignore: no_logic_in_create_state
-  State<NewSet> createState() => NewSetState(exerciseId: exerciseId);
+  State<NewSet> createState() => NewSetState(workoutId: workoutId, exerciseId: exerciseId);
 }
 
 class NewSetState extends State<NewSet> {
   final String exerciseId;
-
-  NewSetState({required this.exerciseId});
+  final String workoutId;
+  NewSetState({required this.workoutId, required this.exerciseId});
 
   TextEditingController weightController = TextEditingController();
   TextEditingController repsController = TextEditingController();
+
+  dynamic showError(String error, String statusMessage)
+  {
+    // ignore: use_build_context_synchronously
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(error),
+        content: Text(statusMessage),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('OK'),
+          ),
+        ],
+      )
+    );
+  }
 
   Widget setTextField(bool obscureText, String labelText, TextEditingController controller) {
     return Container(
@@ -41,11 +61,13 @@ class NewSetState extends State<NewSet> {
     );
   }
 
-  Future<void> sendSet() async
+  Future<void> sendSet(Function f) async
   {
-    Map<String, dynamic> response;
-
-    response = await postSet(exerciseId, weightController.text, repsController.text);
+    Response<dynamic> response = await postSet(workoutId, exerciseId, weightController.text, repsController.text);
+    if (response.statusCode! < 300) {
+      f();
+    }
+    showError('Add set failed', response.data['message'])
     print(response.toString());
   }
 

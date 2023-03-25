@@ -7,10 +7,10 @@ Future<dynamic> postSignUp(String name, String email, String password) async
 
   try {
     final response = await dio.post('$apiUrl/auth/signup', data: data);
-    return response.data;
+    return response;
   } on DioError catch (e) {
     print(e.response!.data);
-    return e.response!.data;
+    return e.response;
   }
 }
 
@@ -20,9 +20,9 @@ Future<dynamic> postLogIn(String email, String password) async
 
   try {
     final response = await dio.post('$apiUrl/auth/login', data: data);
-    return response.data;
+    return response;
   } on DioError catch (e) {
     print(e.response!.data);
-    return e.response!.data;
+    return e.response;
   }
 }
