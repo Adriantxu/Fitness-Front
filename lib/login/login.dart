@@ -51,13 +51,7 @@ class Login extends StatelessWidget {
   }
 
   Future<void> loginUser() async {
-    try {
-      var response = await postLogIn(
-          emailController.toString(), passwordController.toString());
-      print(response);
-    } catch (e) {
-      print(e);
-    }
+    String response = await postLogIn(emailController.text, passwordController.text);
   }
 
   Widget setRoundRectangle(String text, Function f1) {

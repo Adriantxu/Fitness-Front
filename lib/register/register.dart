@@ -61,10 +61,8 @@ class _RegisterState extends State<Register> {
     String response;
     if (passwordController.text != confirmController.text) {
       throw Exception('Passwords are different');
-    } else {
-      response = await postSignUp(nameController.text, emailController.text, passwordController.text);
-      print('[ERROR]: ${response.toString()}');
     }
+    response = await postSignUp(nameController.text, emailController.text, passwordController.text);
   }
 
   Widget setRoundRectangle(String text, Function f) {
