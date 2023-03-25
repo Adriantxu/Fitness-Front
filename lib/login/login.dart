@@ -50,11 +50,11 @@ class Login extends StatelessWidget {
     );
   }
 
-  Future<void> loginUser() async {
+  Future<void> logInUser() async {
     String response = await postLogIn(emailController.text, passwordController.text);
   }
 
-  Widget setRoundRectangle(String text, Function f1) {
+  Widget setRoundRectangle(String text, Function f) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.blueAccent[400],
@@ -65,8 +65,8 @@ class Login extends StatelessWidget {
       width: 200,
       child: TextButton(
         onPressed: () {
-          loginUser();
-          f1();
+          logInUser();
+          f();
         },
         child: Text(
           text,
