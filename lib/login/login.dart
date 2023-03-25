@@ -1,7 +1,7 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import '../register/register.dart';
-import '../auth.service.dart';
+import '../auth/auth.service.dart';
+import '../auth/auth.dart';
 
 class Login extends StatelessWidget {
   Login({super.key});
@@ -26,18 +26,19 @@ class Login extends StatelessWidget {
     );
   }
 
-  Widget setTextField(bool obscureText, String labelText, String hintText,
-      TextEditingController getInfo) {
+  Widget setTextField(bool obscureText, String labelText, TextEditingController getInfo) {
     return Container(
       margin: const EdgeInsets.all(10),
       child: TextField(
         controller: getInfo,
         obscureText: obscureText,
+        style: const TextStyle(
+          color: Colors.white,
+        ),
         decoration: InputDecoration(
           enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.white),
           ),
-          hintText: hintText,
           labelText: labelText,
           hintStyle: const TextStyle(
             color: Colors.white,
@@ -51,7 +52,8 @@ class Login extends StatelessWidget {
   }
 
   Future<void> logInUser() async {
-    String response = await postLogIn(emailController.text, passwordController.text);
+    Map<String, dynamic> response = await postLogIn(emailController.text, passwordController.text);
+    token = response['accessToken'];
   }
 
   Widget setRoundRectangle(String text, Function f) {
@@ -64,8 +66,8 @@ class Login extends StatelessWidget {
       height: 35,
       width: 200,
       child: TextButton(
-        onPressed: () {
-          logInUser();
+        onPressed: () async {
+          await logInUser();
           f();
         },
         child: Text(
@@ -96,9 +98,8 @@ class Login extends StatelessWidget {
                           margin: EdgeInsets.zero,
                           child: Image.asset('assets/logo_gym1.png'),
                         ),
-                        setTextField(false, 'Email', 'something@example.com',
-                            emailController),
-                        setTextField(true, 'Password', '', passwordController),
+                        setTextField(false, 'Email', emailController),
+                        setTextField(true, 'Password', passwordController),
                         setRoundRectangle('Login', () {}),
                         setTextRedirection(
                           "Not a user? Sign up now",

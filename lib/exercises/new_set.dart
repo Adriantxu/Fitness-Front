@@ -38,7 +38,7 @@ class NewSetState extends State<NewSet> {
 
   // Future<void> signUpUser() async
   // {
-  //   String response;
+  //   Map<String, dynamic> response;
   //   if (passwordController.text != confirmController.text) {
   //     throw Exception('Passwords are different');
   //   } else {

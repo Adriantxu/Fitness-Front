@@ -1,7 +1,7 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import '../login/login.dart';
-import '../auth.service.dart';
+import '../auth/auth.service.dart';
+import '../auth/auth.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -40,6 +40,9 @@ class _RegisterState extends State<Register> {
       child: TextField(
         controller: controller,
         obscureText: obscureText,
+        style: const TextStyle(
+          color: Colors.white,
+        ),
         decoration: InputDecoration(
           enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.white),
@@ -58,11 +61,14 @@ class _RegisterState extends State<Register> {
 
   Future<void> signUpUser() async
   {
-    String response;
+    Map<String, dynamic> response;
+
     if (passwordController.text != confirmController.text) {
       throw Exception('Passwords are different');
     }
     response = await postSignUp(nameController.text, emailController.text, passwordController.text);
+    token = response['accessToken'];
+    print(response.toString());
   }
 
   Widget setRoundRectangle(String text, Function f) {
@@ -75,8 +81,8 @@ class _RegisterState extends State<Register> {
       height: 35,
       width: 200,
       child: TextButton(
-        onPressed: () {
-          signUpUser();
+        onPressed: () async {
+          await signUpUser();
           f();
         },
         child: Text(

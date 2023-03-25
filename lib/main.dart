@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'landing/langind_page.dart';
+import 'landing/landing.dart';
 import 'exercises/exercise.dart';
 import 'exercises/new_set.dart';
 

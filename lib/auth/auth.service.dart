@@ -1,12 +1,9 @@
-import 'dart:io';
 import 'package:dio/dio.dart';
+import 'auth.dart';
 
-final dio = Dio();
-final String apiUrl = Platform.isAndroid ? 'http://10.104.66.234:3030' : 'http://localhost:3030';
-
-Future<dynamic> postSignUp(String name, String email, String passowrd) async
+Future<dynamic> postSignUp(String name, String email, String password) async
 {
-  Map<String, String> data = {'name': name, 'email': email, 'password': passowrd};
+  Object data = {'name': name, 'email': email, 'password': password};
 
   try {
     final response = await dio.post('$apiUrl/auth/signup', data: data);
@@ -19,7 +16,7 @@ Future<dynamic> postSignUp(String name, String email, String passowrd) async
 
 Future<dynamic> postLogIn(String email, String password) async
 {
-  Map<String, String> data  = {'email': email, 'password': password};
+  Object data  = {'email': email, 'password': password};
 
   try {
     final response = await dio.post('$apiUrl/auth/login', data: data);
