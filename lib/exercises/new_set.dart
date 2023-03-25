@@ -3,13 +3,18 @@ import 'exercise.dart';
 import 'set.dart';
 
 class NewSet extends StatefulWidget {
-  const NewSet({super.key});
+  final String exerciseId;
+  const NewSet({super.key, required this.exerciseId});
 
   @override
-  State<NewSet> createState() => NewSetState();
+  // ignore: no_logic_in_create_state
+  State<NewSet> createState() => NewSetState(exerciseId: exerciseId);
 }
 
 class NewSetState extends State<NewSet> {
+  final String exerciseId;
+
+  NewSetState({required this.exerciseId});
 
   TextEditingController weightController = TextEditingController();
   TextEditingController repsController = TextEditingController();
@@ -36,16 +41,13 @@ class NewSetState extends State<NewSet> {
     );
   }
 
-  // Future<void> signUpUser() async
-  // {
-  //   Map<String, dynamic> response;
-  //   if (passwordController.text != confirmController.text) {
-  //     throw Exception('Passwords are different');
-  //   } else {
-  //     response = await postSignUp(nameController.text, emailController.text, passwordController.text);
-  //     print('[ERROR]: ${response.toString()}');
-  //   }
-  // }
+  Future<void> sendSet() async
+  {
+    Map<String, dynamic> response;
+
+    response = await postSet(exerciseId, weightController.text, repsController.text);
+    print(response.toString());
+  }
 
   Widget setRoundRectangle(String text, Function f) {
     return Container(
@@ -57,8 +59,8 @@ class NewSetState extends State<NewSet> {
       height: 35,
       width: 200,
       child: TextButton(
-        onPressed: () {
-          // post data
+        onPressed: () async {
+          await sendSet();
           f();
         },
         child: Text(
@@ -92,12 +94,12 @@ class NewSetState extends State<NewSet> {
                       setTextField(false, 'Weight', weightController),
                       setTextField(false, 'Reps', repsController),
                       setRoundRectangle('Add', () {
-                        // return Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => Exercise(),
-                        //   ),
-                        // );
+                        return Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Exercise(),
+                          ),
+                        );
                       }),
                     ],
                   ),
