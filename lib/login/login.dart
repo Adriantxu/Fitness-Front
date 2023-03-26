@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 import '../register/register.dart';
 import '../auth/auth.service.dart';
 import '../auth/auth.dart';
-import 'package:dio/dio.dart';
+import '../workout_page/workoutPage.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -81,8 +82,9 @@ class _LoginState extends State<Login> {
     if (response.statusCode! < 300) {
       token = response.data['accessToken'];
       f();
-    } else
+    } else {
       showError('Log in failed', response.data['message']);
+    }
     print(response.toString());
   }
 
@@ -129,7 +131,12 @@ class _LoginState extends State<Login> {
                         ),
                         setTextField(false, 'Email', emailController),
                         setTextField(true, 'Password', passwordController),
-                        setRoundRectangle('Login', () {}),
+                        setRoundRectangle('Login', () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const WorkoutPage(),
+                          )
+                        )),
                         setTextRedirection(
                           "Not a user? Sign up now",
                           () => Navigator.push(

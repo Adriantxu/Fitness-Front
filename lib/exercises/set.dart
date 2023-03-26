@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import '../auth/auth.dart';
 
-Future<dynamic> postSet(String workoutId, String exerciseId, String weight, String reps) async
+Future<dynamic> postSet(int workoutId, int exerciseId, String weight, String reps) async
 {
   Object data = {'workoutId': workoutId, 'exerciseId': exerciseId, 'weight': weight, 'reps': reps};
 

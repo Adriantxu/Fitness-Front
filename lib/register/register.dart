@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 import '../login/login.dart';
 import '../auth/auth.service.dart';
 import '../auth/auth.dart';
-import 'package:dio/dio.dart';
+import '../workout_page/workoutPage.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -80,7 +81,7 @@ class _RegisterState extends State<Register> {
 
   Future<void> signUpUser(Function f) async
   {
-    Response<dynamic> response;
+    dynamic response;
 
     if (passwordController.text != confirmController.text) {
       showError('Incorrect values', 'Passwords are different');
@@ -90,8 +91,9 @@ class _RegisterState extends State<Register> {
     if (response.statusCode! < 300) {
       token = response.data['accessToken'];
       f();
+    } else {
+      showError('Sign up failed', response.data['message']);
     }
-    showError('Sign up failed', response.data['message']);
     print(response.toString());
   }
 
@@ -140,13 +142,18 @@ class _RegisterState extends State<Register> {
                         setTextField(false, 'Email', emailController),
                         setTextField(true, 'Password', passwordController),
                         setTextField(true, 'Confirm password', confirmController),
-                        setRoundRectangle('Register', () {}),
+                        setRoundRectangle('Register', () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const WorkoutPage(),
+                          )
+                        )),
                         setTextRedirection(
                           "Already a user? Sign in now",
                           () => Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => Login(),
+                              builder: (context) => const Login(),
                             ),
                           ),
                         ),

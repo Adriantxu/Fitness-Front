@@ -4,8 +4,8 @@ import 'set.dart';
 import 'package:dio/dio.dart';
 
 class NewSet extends StatefulWidget {
-  final String exerciseId;
-  final String workoutId;
+  final int exerciseId;
+  final int workoutId;
   const NewSet({super.key, required this.workoutId, required this.exerciseId});
 
   @override
@@ -14,8 +14,8 @@ class NewSet extends StatefulWidget {
 }
 
 class NewSetState extends State<NewSet> {
-  final String exerciseId;
-  final String workoutId;
+  final int exerciseId;
+  final int workoutId;
   NewSetState({required this.workoutId, required this.exerciseId});
 
   TextEditingController weightController = TextEditingController();
