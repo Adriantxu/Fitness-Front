@@ -16,22 +16,20 @@ class _LoginState extends State<Login> {
 
   TextEditingController passwordController = TextEditingController();
 
-  dynamic showError(String error, String statusMessage)
-  {
+  dynamic showError(String error, String statusMessage) {
     // ignore: use_build_context_synchronously
     showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: Text(error),
-        content: Text(statusMessage),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('OK'),
-          ),
-        ],
-      )
-    );
+        context: context,
+        builder: (_) => AlertDialog(
+              title: Text(error),
+              content: Text(statusMessage),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('OK'),
+                ),
+              ],
+            ));
   }
 
   Widget setTextRedirection(String text, Function func) {
@@ -50,7 +48,8 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Widget setTextField(bool obscureText, String labelText, TextEditingController getInfo) {
+  Widget setTextField(
+      bool obscureText, String labelText, TextEditingController getInfo) {
     return Container(
       margin: const EdgeInsets.all(10),
       child: TextField(
@@ -76,13 +75,14 @@ class _LoginState extends State<Login> {
   }
 
   Future<void> logInUser(Function f) async {
-    Response<dynamic> response = await postLogIn(emailController.text, passwordController.text);
+    Response<dynamic> response =
+        await postLogIn(emailController.text, passwordController.text);
 
     if (response.statusCode! < 300) {
       token = response.data['accessToken'];
       f();
-    }
-    showError('Log in failed', response.data['message']);
+    } else
+      showError('Log in failed', response.data['message']);
     print(response.toString());
   }
 
@@ -112,41 +112,40 @@ class _LoginState extends State<Login> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Colors.grey[900],
-        body: SafeArea(
-          minimum: const EdgeInsets.all(25),
-          child: LayoutBuilder(
-            builder: (context, constraints) => SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                child: IntrinsicHeight(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.zero,
-                        child: Image.asset('assets/logo_gym1.png'),
-                      ),
-                      setTextField(false, 'Email', emailController),
-                      setTextField(true, 'Password', passwordController),
-                      setRoundRectangle('Login', () {}),
-                      setTextRedirection(
-                        "Not a user? Sign up now",
-                        () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const Register(),
+          backgroundColor: Colors.grey[900],
+          body: SafeArea(
+            minimum: const EdgeInsets.all(25),
+            child: LayoutBuilder(
+              builder: (context, constraints) => SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  child: IntrinsicHeight(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.zero,
+                          child: Image.asset('assets/logo_gym1.png'),
+                        ),
+                        setTextField(false, 'Email', emailController),
+                        setTextField(true, 'Password', passwordController),
+                        setRoundRectangle('Login', () {}),
+                        setTextRedirection(
+                          "Not a user? Sign up now",
+                          () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Register(),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        )
-      ),
+          )),
     );
   }
 }
