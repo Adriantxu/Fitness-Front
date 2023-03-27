@@ -1,98 +1,49 @@
 {
-    "workouts": [
-      {
-        "id": 1,
-        "name": "Upper Body Day",
-        "date": "2022-04-01",
-        "Set": [
-            {
-                "id": 1,
-                "reps": 8,
-                "weight": 135,
-                "date": "2023-03-25T15:41:12",
-                "exercise_id": 101,
-                "workout_id": 1
-            },
-            {
-                "id": 2,
-                "reps": 10,
-                "weight": 80,
-                "date": "2023-03-25",
-                "exercise_id": 102,
-                "workout_id": 1
-            },
-            {
-                "id": 3,
-                "reps": 12,
-                "weight": 40,
-                "date": "2023-03-25",
-                "exercise_id": 103,
-                "workout_id": 1
-            }
-        ]
-      },
-      {
-        "id": 2,
-        "name": "Sexo duro sin compromiso",
-        "date": "2022-02-01",
-        "Set": [
-            {
-                "id": 1,
-                "reps": 8,
-                "weight": 135,
-                "date": "2023-03-25T15:41:12",
-                "exercise_id": 101,
-                "workout_id": 1
-            },
-            {
-                "id": 2,
-                "reps": 10,
-                "weight": 80,
-                "date": "2023-03-25",
-                "exercise_id": 102,
-                "workout_id": 1
-            },
-            {
-                "id": 3,
-                "reps": 12,
-                "weight": 40,
-                "date": "2023-03-25",
-                "exercise_id": 103,
-                "workout_id": 1
-            }
-        ]
-      },
-      {
-        "id": 2,
-        "name": "Spy Gay",
-        "date": "2022-02-01",
-        "Set": [
-            {
-                "id": 1,
-                "reps": 8,
-                "weight": 135,
-                "date": "2023-03-25T15:41:12",
-                "exercise_id": 101,
-                "workout_id": 1
-            },
-            {
-                "id": 2,
-                "reps": 10,
-                "weight": 80,
-                "date": "2023-03-25",
-                "exercise_id": 102,
-                "workout_id": 1
-            },
-            {
-                "id": 3,
-                "reps": 12,
-                "weight": 40,
-                "date": "2023-03-25",
-                "exercise_id": 103,
-                "workout_id": 1
-            }
-        ]
-      }
-    ]
-  }
-  
+  "workouts": [
+    {
+      "id": 1,
+      "name": "Workout01 Test",
+      "date": "2023-03-25T17:29:57.231Z",
+      "Set": [
+        {
+          "id": 2,
+          "reps": 8,
+          "weight": 70,
+          "date": "2023-03-25T17:29:57.231Z",
+          "exerciseId": 1,
+          "workoutId": 1
+        },
+        {
+          "id": 3,
+          "reps": 6,
+          "weight": 80,
+          "date": "2023-03-25T17:29:57.231Z",
+          "exerciseId": 1,
+          "workoutId": 1
+        },
+        {
+          "id": 4,
+          "reps": 6,
+          "weight": 80,
+          "date": "2023-03-25T17:29:57.231Z",
+          "exerciseId": 1,
+          "workoutId": 1
+        },
+        {
+          "id": 1,
+          "reps": 12,
+          "weight": 70,
+          "date": "2023-03-25T17:29:57.231Z",
+          "exerciseId": 2,
+          "workoutId": 1
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Workout02 Test",
+      "date": "2023-03-26T15:17:50.737Z",
+      "Set": []
+    }
+  ]
+}

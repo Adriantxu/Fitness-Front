@@ -1,7 +1,7 @@
 class Workout {
-  final int id;
+  final int? id;
   final String name;
-  final String date;
+  final DateTime date;
   final List<WorkoutSet> sets;
 
   Workout({
@@ -20,19 +20,19 @@ class Workout {
     return Workout(
       id: json['id'],
       name: json['name'],
-      date: json['date'],
+      date: DateTime.parse(json['date']),
       sets: sets,
     );
   }
 }
 
 class WorkoutSet {
-  final int id;
-  final int reps;
-  final int weight;
+  final int? id;
+  final int? reps;
+  final int? weight;
   final String date;
   final int exerciseId;
-  final int workoutId;
+  final int? workoutId;
 
   WorkoutSet({
     required this.id,
@@ -49,7 +49,7 @@ class WorkoutSet {
       reps: json['reps'],
       weight: json['weight'],
       date: json['date'],
-      exerciseId: json['exercise_id'],
+      exerciseId: json['exerciseId'],
       workoutId: json['workout_id'],
     );
   }

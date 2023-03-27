@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:just_friends/workout_page/exercise_service.dart';
 import 'dart:convert';
 import 'workoutInfo.dart';
 import 'workout_selector/workoutSelector.dart';
@@ -18,8 +19,23 @@ class _WorkoutPageState extends State<WorkoutPage> {
   @override
   void initState() {
     super.initState();
-    _fetchData(); // fetch the data from the JSON file
+    _fetchData();
   }
+
+//   Future<void> _fetchData() async {
+//     try {
+//       final dynamic jsonData = await getWorkout();
+//       final List<dynamic> jsonList = jsonData['workouts'];
+//       print('JsonList $jsonList');
+//  _workout = jsonList
+//           .map((json) => Workout.fromJson(json))
+//           .toList()
+//           .cast<Workout>();
+//       setState(() {});
+//     } catch (e) {
+//       print('Error fetching data: $e');
+//     }
+//   }
 
   Future<void> _fetchData() async {
     try {
@@ -45,7 +61,6 @@ class _WorkoutPageState extends State<WorkoutPage> {
       // handle error
     }
   }
-  // rest of the code
 
   final items = List<String>.generate(10000, (i) => 'Item $i');
 
@@ -73,7 +88,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[600],
+      backgroundColor: Colors.grey[900],
       body: SafeArea(
         minimum: const EdgeInsets.all(25),
         child: ListView.builder(
@@ -90,7 +105,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
                     return showAlertDelete();
                   },
                   child: Card(
-                    color: Colors.red,
+                    color: Colors.blueAccent[400],
                     child: Padding(
                       padding: const EdgeInsets.all(20),
                       child: ListTile(
@@ -106,6 +121,10 @@ class _WorkoutPageState extends State<WorkoutPage> {
                           },
                           child: Text(
                             _workout[index].name,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w400,
+                            ),
                           ),
                         ),
                       ),
