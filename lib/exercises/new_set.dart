@@ -118,7 +118,7 @@ class NewSetState extends State<NewSet> {
                         return Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Exercise(),
+                            builder: (context) => Exercise(exerciseId: exerciseId, workoutId: workoutId,),
                           ),
                         );
                       }),

@@ -22,21 +22,6 @@ class _WorkoutPageState extends State<WorkoutPage> {
     _fetchData();
   }
 
-//   Future<void> _fetchData() async {
-//     try {
-//       final dynamic jsonData = await getWorkout();
-//       final List<dynamic> jsonList = jsonData['workouts'];
-//       print('JsonList $jsonList');
-//  _workout = jsonList
-//           .map((json) => Workout.fromJson(json))
-//           .toList()
-//           .cast<Workout>();
-//       setState(() {});
-//     } catch (e) {
-//       print('Error fetching data: $e');
-//     }
-//   }
-
   Future<void> _fetchData() async {
     try {
       // read the JSON file from assets
@@ -106,20 +91,20 @@ class _WorkoutPageState extends State<WorkoutPage> {
                   },
                   child: Card(
                     color: Colors.blueAccent[400],
-                    child: Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: ListTile(
-                        title: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    WorkoutSelector(workout: _workout[index]),
-                              ),
-                            );
-                          },
-                          child: Text(
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                WorkoutSelector(workout: _workout[index]),
+                          ),
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: ListTile(
+                          title: Text(
                             _workout[index].name,
                             style: const TextStyle(
                               color: Colors.white,

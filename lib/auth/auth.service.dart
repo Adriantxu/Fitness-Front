@@ -8,7 +8,7 @@ Future<dynamic> postSignUp(String name, String email, String password) async
 
   try {
     response = await dio.post('$apiUrl/auth/signup', data: data);
-    print(response);
+      print(response);
     return response;
   } on DioError catch (e) {
     if (e.response != null) {

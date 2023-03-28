@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../workoutInfo.dart';
 import '../exercise_service.dart';
+import '../../exercises/exercise.dart';
 
 class WorkoutSelector extends StatefulWidget {
   final Workout workout;
@@ -53,7 +54,7 @@ class _WorkoutSelectorState extends State<WorkoutSelector> {
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
-              'Sets:',
+              'Exercise:',
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 18.0,
@@ -71,13 +72,19 @@ class _WorkoutSelectorState extends State<WorkoutSelector> {
                       final set = workout.sets[index];
                       final exerciseName = snapshot.data![index];
                       return ListTile(
-                        title: Text(
-                          'Set ${index + 1}: ${set.reps} reps, ${set.weight} lbs',
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                        subtitle: Text(
-                          'Exercise: $exerciseName',
-                          style: const TextStyle(color: Colors.white),
+                        title: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      Exercise(exerciseId: set.exerciseId, workoutId: set.workoutId)),
+                            );
+                          },
+                          child: Text(
+                            exerciseName,
+                            style: const TextStyle(color: Colors.white),
+                          ),
                         ),
                       );
                     },

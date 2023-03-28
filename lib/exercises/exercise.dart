@@ -3,13 +3,20 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'new_set.dart';
 
 class Exercise extends StatefulWidget {
-  const Exercise({super.key});
+  final int exerciseId;
+  final int? workoutId;
+  const Exercise(
+      {super.key, required this.workoutId, required this.exerciseId});
 
   @override
-  State<Exercise> createState() => _ExerciseState();
+  State<Exercise> createState() =>
+      _ExerciseState(workoutId: workoutId, exerciseId: exerciseId);
 }
 
 class _ExerciseState extends State<Exercise> {
+  final int exerciseId;
+  final int? workoutId;
+  _ExerciseState  ({required this.workoutId, required this.exerciseId});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -102,4 +109,3 @@ class WeightData {
 
   WeightData(this.date, this.weight);
 }
-
