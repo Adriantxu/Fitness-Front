@@ -79,10 +79,44 @@ class _RegisterState extends State<Register> {
     );
   }
 
+  String validPassword(String password) {
+    bool hasUpperCase = false;
+    bool hasNumber = false;
+    bool hasSpecial = false;
+  
+    if (password.length < 8) {
+      return 'Password must be a minimum of 8 characters';
+    }
+    for (int i = 0; i < password.length; i++) {
+      if (password[i].toUpperCase() == password[i] && password[i].toLowerCase() != password[i]) {
+        hasUpperCase = true;
+      } else if (int.tryParse(password[i]) != null) {
+        hasNumber = true;
+      } else if (!password[i].trim().contains(RegExp(r'[a-zA-z0-9]'))) {
+        hasSpecial = true;
+      }
+    }
+    if (!hasUpperCase) {
+      return 'Password must contain a capital letter';
+    }
+    if (!hasNumber) {
+      return 'Password must contain a number';
+    }
+    if (!hasSpecial) {
+      return 'Password must contain a special character';
+    }
+    return '';
+  }
+
   Future<void> signUpUser(Function f) async
   {
     dynamic response;
+    String passwordMessage = validPassword(passwordController.text);
 
+    if (passwordMessage.isNotEmpty) {
+      showError('Incorrect values', passwordMessage);
+      return;
+    }
     if (passwordController.text != confirmController.text) {
       showError('Incorrect values', 'Passwords are different');
       return;
