@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:just_friends/exercises/set.dart';
+import 'package:just_friends/workout_page/workout_selector/workoutSelector.dart';
 import 'new_set.dart';
+import '../workout_page/workout_selector/workoutSelector.dart';
 
 class Exercise extends StatefulWidget {
   final int exerciseId;
-  final int? workoutId;
+  final int workoutId;
   const Exercise(
       {super.key, required this.workoutId, required this.exerciseId});
 
@@ -15,8 +18,14 @@ class Exercise extends StatefulWidget {
 
 class _ExerciseState extends State<Exercise> {
   final int exerciseId;
-  final int? workoutId;
+  final int workoutId;
   _ExerciseState  ({required this.workoutId, required this.exerciseId});
+
+  Future<String> exerciseName(int exerciseId) async {
+    dynamic response =  await getExerciseName(exerciseId);
+    return response['name'];
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -24,7 +33,19 @@ class _ExerciseState extends State<Exercise> {
       home: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text('Exercise'),
+          title: FutureBuilder(
+            future: exerciseName(exerciseId),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Text(snapshot.data!);
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: Text('Error: ${snapshot.error}'),
+                );
+              }
+              return Container();
+            }
+          ),
         ),
         backgroundColor: Colors.grey[900],
         body: WeightChart.withSampleData(),
@@ -35,8 +56,8 @@ class _ExerciseState extends State<Exercise> {
             MaterialPageRoute(
               // ignore: prefer_const_constructors
               builder: (context) => NewSet(
-                workoutId: 1,
-                exerciseId: 1,
+                workoutId: workoutId,
+                exerciseId: exerciseId,
               ),
             ),
           ),

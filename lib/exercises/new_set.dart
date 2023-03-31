@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'exercise.dart';
 import 'set.dart';
@@ -92,6 +93,11 @@ class NewSetState extends State<NewSet> {
     );
   }
 
+  Future<String> exerciseName(int exerciseId) async {
+    dynamic response =  await getExerciseName(exerciseId);
+    return response['name'];
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -99,7 +105,31 @@ class NewSetState extends State<NewSet> {
       home: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text('Exercise'),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Exercise(
+                  workoutId: workoutId,
+                  exerciseId: exerciseId,
+                ),
+              ),
+            ),
+          ),
+          title: FutureBuilder(
+            future: exerciseName(exerciseId),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Text(snapshot.data!);
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: Text('Error: ${snapshot.error}'),
+                );
+              }
+              return Container();
+            }
+          ),
         ),
         backgroundColor: Colors.grey[900],
         body: SafeArea(

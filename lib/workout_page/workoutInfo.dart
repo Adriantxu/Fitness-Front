@@ -32,7 +32,7 @@ class WorkoutSet {
   final int? weight;
   final String date;
   final int exerciseId;
-  final int? workoutId;
+  final int workoutId;
 
   WorkoutSet({
     required this.id,
@@ -50,7 +50,7 @@ class WorkoutSet {
       weight: json['weight'],
       date: json['date'],
       exerciseId: json['exerciseId'],
-      workoutId: json['workout_id'],
+      workoutId: json['workoutId'],
     );
   }
 }
