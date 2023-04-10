@@ -71,54 +71,66 @@ class _WorkoutPageState extends State<WorkoutPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[900],
-      body: SafeArea(
-        minimum: const EdgeInsets.all(25),
-        child: ListView.builder(
-            itemCount: _workout.length,
-            itemBuilder: (context, index) {
-              if (_workout.isEmpty) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else {
-                return Dismissible(
-                  key: UniqueKey(),
-                  confirmDismiss: (DismissDirection direction) async {
-                    return showAlertDelete();
+Widget build(BuildContext context) {
+  return Scaffold(
+    backgroundColor: Colors.grey[900],
+    body: SafeArea(
+      minimum: const EdgeInsets.all(25),
+      child: ListView.builder(
+        itemCount: _workout.length,
+        itemBuilder: (context, index) {
+          if (_workout.isEmpty) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            return Dismissible(
+              key: UniqueKey(),
+              confirmDismiss: (DismissDirection direction) async {
+                return showAlertDelete();
+              },
+              child: Card(
+                color: Colors.blueAccent[400],
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            WorkoutSelector(workout: _workout[index]),
+                      ),
+                    );
                   },
-                  child: Card(
-                    color: Colors.blueAccent[400],
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                WorkoutSelector(workout: _workout[index]),
-                          ),
-                        );
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: ListTile(
-                          title: Text(
-                            _workout[index].name,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: ListTile(
+                      title: Text(
+                        _workout[index].name,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                     ),
                   ),
-                );
-              }
-            }),
+                ),
+              ),
+            );
+          }
+        },
       ),
-    );
-  }
+    ),
+    floatingActionButton: FloatingActionButton(
+      child: const Icon(Icons.add),
+      onPressed: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          // ignore: prefer_const_constructors
+          builder: (context) => WorkoutSelector(workout: _workout[0]),
+        ),
+      ),
+    ),
+  );
+}
+
 }
