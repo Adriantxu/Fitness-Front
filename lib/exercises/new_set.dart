@@ -1,5 +1,5 @@
-import 'dart:ffi';
 import 'package:flutter/material.dart';
+import '../workout_page/workoutPage.dart';
 import 'exercise.dart';
 import 'set.dart';
 import 'package:dio/dio.dart';
@@ -32,7 +32,7 @@ class NewSetState extends State<NewSet> {
         content: Text(statusMessage),
         actions: <Widget>[
           TextButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () => (context.mounted) ?  Navigator.pop(context) : null,
             child: const Text('OK'),
           ),
         ],
@@ -46,6 +46,9 @@ class NewSetState extends State<NewSet> {
       child: TextField(
         controller: controller,
         obscureText: obscureText,
+        style: const TextStyle(
+          color: Colors.white
+        ),
         decoration: InputDecoration(
           enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.white),
@@ -64,12 +67,21 @@ class NewSetState extends State<NewSet> {
 
   Future<void> sendSet(Function f) async
   {
-    Response<dynamic> response = await postSet(workoutId, exerciseId, weightController.text, repsController.text);
+    if (weightController.text.isEmpty) {
+      showError('Add set failed', 'No weight found');
+      return;
+    }
+      if (repsController.text.isEmpty) {
+      showError('Add set failed', 'No reps found');
+      return;
+    }
+    Response<dynamic> response = await postSet(workoutId, exerciseId, int.parse(weightController.text), int.parse(repsController.text));
     if (response.statusCode! < 300) {
       f();
+    } else {
+      showError('Add set failed', response.data['message']);
+      print(response.toString());
     }
-    showError('Add set failed', response.data['message']);
-    print(response.toString());
   }
 
   Widget setRoundRectangle(String text, Function f) {
@@ -107,14 +119,11 @@ class NewSetState extends State<NewSet> {
           centerTitle: true,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => Exercise(
-                  workoutId: workoutId,
-                  exerciseId: exerciseId,
-                ),
-              ),
+            onPressed: () => (context.mounted) ?  Navigator.pop(context) : Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const WorkoutPage(),
+                          )
             ),
           ),
           title: FutureBuilder(
