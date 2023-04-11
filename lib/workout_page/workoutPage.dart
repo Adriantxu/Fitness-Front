@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:just_friends/workout_page/exercise_service.dart';
+import 'package:just_friends/workout_page/workout_add.dart';
 import 'dart:convert';
 import 'workoutInfo.dart';
 import 'workout_selector/workoutSelector.dart';
@@ -126,7 +127,7 @@ Widget build(BuildContext context) {
         context,
         MaterialPageRoute(
           // ignore: prefer_const_constructors
-          builder: (context) => WorkoutSelector(workout: _workout[0]),
+          builder: (context) => NewWorkout(),
         ),
       ),
     ),
