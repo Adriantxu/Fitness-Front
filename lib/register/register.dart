@@ -79,6 +79,20 @@ class _RegisterState extends State<Register> {
     );
   }
 
+  String validEmail(String email) {
+    bool hasAt = false;
+  
+    for (int i = 0; i < email.length ; i++) {
+      if (email[i] == '@') {
+        hasAt = true;
+      }
+    }
+    if (!hasAt) {
+      return 'Not a valid email';
+    }
+    return '';
+  }
+
   String validPassword(String password) {
     bool hasUpperCase = false;
     bool hasNumber = false;
@@ -111,8 +125,13 @@ class _RegisterState extends State<Register> {
   Future<void> signUpUser(Function f) async
   {
     dynamic response;
+    String emailMessage = validEmail(emailController.text);
     String passwordMessage = validPassword(passwordController.text);
 
+    if (emailMessage.isNotEmpty) {
+      showError('Incorrect values', emailMessage);
+      return;
+    }
     if (passwordMessage.isNotEmpty) {
       showError('Incorrect values', passwordMessage);
       return;

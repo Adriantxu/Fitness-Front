@@ -34,12 +34,7 @@ class _ExerciseState extends State<Exercise> {
           centerTitle: true,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
-            onPressed: () => (context.mounted) ?  Navigator.pop(context) : Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const WorkoutPage(),
-                          )
-            ),
+            onPressed: () => Navigator.pop(context),
           ),
           title: FutureBuilder(
             future: exerciseName(exerciseId),

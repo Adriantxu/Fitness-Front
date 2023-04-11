@@ -27,12 +27,12 @@ class NewSetState extends State<NewSet> {
     // ignore: use_build_context_synchronously
     showDialog(
       context: context,
-      builder: (_) => AlertDialog(
+      builder: (BuildContext dialogContext) => AlertDialog(
         title: Text(error),
         content: Text(statusMessage),
         actions: <Widget>[
           TextButton(
-            onPressed: () => (context.mounted) ?  Navigator.pop(context) : null,
+            onPressed: () => Navigator.pop(dialogContext),
             child: const Text('OK'),
           ),
         ],
@@ -119,12 +119,7 @@ class NewSetState extends State<NewSet> {
           centerTitle: true,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
-            onPressed: () => (context.mounted) ?  Navigator.pop(context) : Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const WorkoutPage(),
-                          )
-            ),
+            onPressed: () => Navigator.pop(this.context)
           ),
           title: FutureBuilder(
             future: exerciseName(exerciseId),
@@ -154,12 +149,13 @@ class NewSetState extends State<NewSet> {
                       setTextField(false, 'Weight', weightController),
                       setTextField(false, 'Reps', repsController),
                       setRoundRectangle('Add', () {
-                        return Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Exercise(exerciseId: exerciseId, workoutId: workoutId,),
-                          ),
-                        );
+                        return Navigator.pop(this.context);
+                        // return Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //       builder: (context) => Exercise(exerciseId: exerciseId, workoutId: workoutId),
+                        //     ),
+                        //   );
                       }),
                     ],
                   ),
