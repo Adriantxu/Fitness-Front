@@ -21,12 +21,20 @@ Future<dynamic> getExerciseName(int id) async {
   }
 }
 
-Future<dynamic> postSet(int workoutId, int exerciseId, String weight, String reps) async
+Future<dynamic> postSet(int workoutId, int exerciseId, int weight, int reps) async
 {
-  Object data = {'workoutId': workoutId, 'exerciseId': exerciseId, 'weight': weight, 'reps': reps};
+  Object data = {'workoutId': workoutId, 'exerciseId': exerciseId, 'reps': reps, 'weight': weight};
 
   try {
-    final response = await dio.post('$apiUrl', data: data);
+    final response = await dio.post(
+      '$apiUrl/sets',
+      data: data,
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      ),
+      );
     return response;
   } on DioError catch (e) {
     print(e.response!.data);

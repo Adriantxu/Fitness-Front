@@ -14,3 +14,11 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+## Dev Container
+
+This project has a development container for you to work with easier.
+
+You will need to have docker-compose install to run it.
+
+Then run Re-Open Folder in Dev-Container.

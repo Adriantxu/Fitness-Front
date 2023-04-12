@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:just_friends/exercises/set.dart';
-import 'package:just_friends/workout_page/workout_selector/workoutSelector.dart';
+import '../workout_page/workoutPage.dart';
 import 'new_set.dart';
-import '../workout_page/workout_selector/workoutSelector.dart';
 
 class Exercise extends StatefulWidget {
   final int exerciseId;
@@ -33,6 +32,10 @@ class _ExerciseState extends State<Exercise> {
       home: Scaffold(
         appBar: AppBar(
           centerTitle: true,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () => Navigator.pop(context),
+          ),
           title: FutureBuilder(
             future: exerciseName(exerciseId),
             builder: (context, snapshot) {

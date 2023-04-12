@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=/home/developer/flutter"
-export "FLUTTER_APPLICATION_PATH=/home/developer/workspace/packages/flutter_library"
+export "FLUTTER_ROOT=/home/gonzalo/snap/flutter/common/flutter"
+export "FLUTTER_APPLICATION_PATH=/home/gonzalo/Flutter_projects/Fitness-Front/packages/flutter_library"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_TARGET=lib/main.dart"
 export "FLUTTER_BUILD_DIR=build"

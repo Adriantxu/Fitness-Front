@@ -1,4 +1,4 @@
-# just_friends
+# FIT ME
 
 A new Flutter project.
 
