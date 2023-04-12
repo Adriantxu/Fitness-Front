@@ -36,10 +36,13 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   google_fonts: ^4.0.3
+  dio: ^5.0.3
+  charts_flutter: ^0.12.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  google_nav_bar: ^5.0.6
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -61,13 +64,9 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/flutter-logo.png
-    - assets/logo-no-background.png
-    - assets/gym-1-300x200.jpg
-    - assets/gym_photo_1.jpeg
-    - assets/gym_photo_2.jpg
-    - assets/gym_photo_3.png
-    - assets/logo_gym1.png
+    - assets/
+    - lib/workout_page/workouts.json
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
